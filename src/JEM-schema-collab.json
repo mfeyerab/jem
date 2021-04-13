@@ -10,13 +10,13 @@
         "rigOperator": {
             "type": "string",
             "title": "Researcher",
-            "enum":["nataliag", "rene", "djai", "christina", "ayoub", "gasparo", "huibm", "martonr", "norbertm", "szabinaf", "sarahh", "visitor"],
+            "enum":["JS", "MM", "SA"],
             "required":true
         },
         "rigNumber": {
             "type":"string",
             "title":"Rig #",
-            "enum":["1","2","3","4","5","6","7","8", "BRL", "HCT1", "HCT2", "HCT3", "MP1", "MP2", "MP3", "MP4", "NA"],
+            "enum":["Inoue1","Inoue2","Poulter1","2-P"],
             "required":true
         },
         "date":{
