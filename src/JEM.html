@@ -497,7 +497,7 @@
                                     "type": "text",
                                     "fieldClass": "col-md-4",
                                     "helper":[],
-                                    "placeholder":"ex: Slc32a1-IRES-Cre;Ai14-259605.09.02",
+                                    "placeholder":"ex:M16_MM_A1_C01",
                                     "validate":true,
                                     "showMessages": true,
                                     "hideInitValidationError":true,
@@ -543,37 +543,36 @@
                                         }
                                     }
                                 },
-                                "acsfProductionDate": {
-                                    "type":"date",
-                                    "fieldClass":"col-md-2",
-                                    "picker": {
-                                        "format":"YYYY-MM-DD",
-                                        "showClose": true,
-                                        "inline": false,
-                                        "tooltips": {
-                                            today: "Go to today"
-                                        },
-                                        "useCurrent":true
-                                    },
-                                    "manualEntry":false,
-                                    "validate":true,
-                                    "showMessages": false,
-                                    "hideInitValidationError":true
-                                },
-                                "blankFillDate": {
-                                    "type":"select",
-                                    "fieldClass":"dropdown-content col-md-2",
-                                    "helper":[],
-                                    "hideNone":false,
-                                    "noneLabel":"",
-                                    "validate":true,
-                                    "showMessages":false,
-                                    "hideInitValidationError":true,
-                                    "sort":function(first, second) {
-                                        // Sort the dates in reverse so that the newest ones will be at the top.
-                                        return second.text.localeCompare(first.text);
+                                "Species": {
+                                    "type": "select",
+                                    "fieldClass":"dropdown-content col-md-1",
+									"events":{
+                                        "ready": function(field){
+                                            var jemdatasocket = new WebSocket("ws://localhost:8888/jem");
+
+                                            var self = this;
+                                            jemdatasocket.onopen  = function() {
+                                                jemdatasocket.send(JSON.stringify(9191));
+                                            };
+
+                                            jemdatasocket.onmessage = function(msg) {
+                                                var incomingDat = JSON.parse(msg.data);
+
+                                                if ('factor' in incomingDat){
+                                                    if (incomingDat['factor'] == 'Species'){
+                                                        self.setValue(incomingDat['value']);
+                                                        self.refresh();
+                                                    }
+                                                }
+                                            };
+                                        }
                                     }
                                 },
+                                "Inital access resistance":{
+                                "format":"number",
+                                "title":"Inital access resistance",
+                                "required":true
+                                 },
                                 "internalFillDate": {
                                     "type":"select",
                                     "fieldClass":"dropdown-content col-md-2",
